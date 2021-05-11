@@ -1,10 +1,17 @@
 # README
 
+## Description
+
+* This Repository is developed to build a nomad cluster with consul and docker driver.
+* The VMs are built using vagrant and provisioned using Ansible.
+* The Solution creates 1 Master and 2 client.
+* For a totaly high available Cluster just uncomment the other 2 Master nodes in Vagrantfile and in inventory
 
 ## requirement
 
 * Virsualbox https://www.virtualbox.org/wiki/Downloads
 * vagrant https://www.vagrantup.com/downloads
+* Minimum 4 cpu and 4G RAM for the Single node master 
 
 ## How to use the Repo:
 
