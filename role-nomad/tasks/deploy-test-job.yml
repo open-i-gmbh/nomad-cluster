@@ -1,0 +1,8 @@
+---
+- name: deploy demo-webapp job
+  shell:
+    nomad run /vagrant/webapp.nomad
+
+- name: deploy nginx reverse proxy
+  shell:
+    nomad run /vagrant/nginx.nomad

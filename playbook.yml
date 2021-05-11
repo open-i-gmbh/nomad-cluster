@@ -1,5 +1,18 @@
 # INSTALL CONSUL + NOMAD WITH DOCKER DRIVER
 
+- name: hosts file update
+  hosts: all
+  become: yes
+  tasks:
+  - name: Add IP address of all hosts to all hosts
+    lineinfile:
+      dest: /etc/hosts
+      regexp: '.*{{ item }}$'
+      line: "{{ hostvars[item].ansible_host }} {{item}}.local {{item}}"
+      state: present
+    when: hostvars[item].ansible_host is defined
+    with_items: "{{ groups.all }}"
+
 - name: Install consul and dnsmasq
   hosts: all
   become: yes
