@@ -1,0 +1,13 @@
+[Unit]
+Description=Consul Service
+After=network.target
+
+[Service]
+Type=simple
+User={{ consul_user }}
+Group={{ consul_group }}
+ExecStart={{ consul_install_dir }}/consul agent -config-dir={{ consul_config_dir }} -ui -dns-port=53
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

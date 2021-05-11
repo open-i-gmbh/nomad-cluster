@@ -1,0 +1,8 @@
+# Integration of Consul Template in Nomad
+
+- name: download consul-template zip
+  unarchive:
+    src: "{{ consul_template_url }}"
+    creates: "{{ consul_install_dir }}/consul-template"
+    dest: "{{ consul_install_dir }}"
+    remote_src: yes

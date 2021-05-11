@@ -1,0 +1,14 @@
+consul {
+  address = "127.0.0.1:8500"
+
+  auth {
+    enabled = false
+  }
+}
+
+log_level = "warn"
+
+template {
+  contents = "{{key \"hello\"}}"
+  destination = "/vagrant/consul/template/out.txt"
+}

@@ -1,0 +1,54 @@
+---
+# Set up docker to use as drive for nomad
+
+- name: Uninstall Docker
+  package:
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-engine
+    state: absent
+
+- name: Add Docker repo
+  get_url:
+    url: "{{ docker_repo_url }}"
+    dest: /etc/yum.repos.d/docer-ce.repo
+
+- name: Install Docker
+  yum:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: latest
+
+- name: Edit the docker service options
+  template:
+    src: docker.service.j2
+    dest: /etc/systemd/system/docker.service
+    owner: root
+    group: root
+    mode: 0644
+    force: true
+  notify: restart docker
+
+- name: Create /etc/docker directory
+  file:
+    path: "/etc/docker"
+    state: directory
+    mode: 0644
+
+- name: Create default docker daemon options
+  template:
+    src: docker_daemon_config.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
+    force: true
+  notify: restart docker
+
+- name: Ensure Docker service is started and enabled on boot
+  service: name=docker state=started enabled=yes

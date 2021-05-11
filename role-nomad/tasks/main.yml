@@ -1,0 +1,15 @@
+---
+
+- name: Ceate Useres and Groups
+  include: nomad-user.yml
+
+- name: Nomad installation
+  include: nomad-installation.yml
+
+- name: Include Docker tasks
+  include: docker.yml
+  when:
+    - nomad_client
+
+- name: Install bind-utils "dig"
+  yum: name=bind-utils state=installed

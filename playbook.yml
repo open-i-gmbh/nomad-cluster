@@ -1,0 +1,19 @@
+# INSTALL CONSUL + NOMAD WITH DOCKER DRIVER
+
+- name: Install consul and dnsmasq
+  hosts: all
+  become: yes
+  roles:
+    - role-consul
+
+- name: Install Docker
+  hosts: client
+  become: yes
+  roles:
+    - role-docker
+
+- name: Install Nomad
+  hosts: all
+  become: yes
+  roles:
+    - role-nomad

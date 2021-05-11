@@ -1,0 +1,65 @@
+---
+# tasks for the installation and configuration of consul
+
+- name: Ensure unzip is installed (required by unarchive module)
+  yum: name=unzip state=installed
+
+
+- name: download consul zip
+  unarchive:
+    src: "{{ consul_url }}"
+    creates: "{{ consul_install_dir }}/consul"
+    dest: "{{ consul_install_dir }}"
+    remote_src: yes
+
+- name: Create Consul configuration directory
+  file:
+    path: "{{ consul_config_dir }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0755
+    state: directory
+
+- name: Create consul.service configuration
+  template:
+    src: consul.service.j2
+    dest: /etc/systemd/system/consul.service
+    owner: root
+    group: root
+    mode: 0644
+    force: yes
+  notify: restart consul
+
+
+- name: Create Consul configuration file
+  template:
+    src: consul.json.j2
+    dest: "{{ consul_config_dir }}/consul.json"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  notify: restart consul
+  when: consul_server
+
+- name: Create Consul configuration file for the client
+  template:
+    src: consul-client.json.j2
+    dest: "{{ consul_config_dir }}/consul.json"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  notify: restart consul
+  when: consul_client
+
+- name: Create resolv.conf configuration file
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    mode: 0644
+
+
+- name: Ensure Consul service is started and enabled on boot
+  service: name={{ consul_service_name }} state=started enabled=yes
+
+- name: Install consul-template
+  include: consul-template.yml

@@ -1,0 +1,12 @@
+---
+- name: Create Nomad group
+  group: name={{ nomad_group }} system=yes state=present
+
+- name: Create Nomad user
+  user:
+    name: "{{ nomad_user }}"
+    shell: /bin/false
+    createhome: no
+    group: "{{ nomad_group }}"
+    system: yes
+    state: present
