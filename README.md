@@ -18,7 +18,7 @@
 * clone the repo
 
 ```
-git clone https://github.com/mahmoud-mahdi/nomad_vm.git
+git clone https://github.com/open-i-gmbh/nomad-cluster.git
 ```
 
 * Provision the evviroment
