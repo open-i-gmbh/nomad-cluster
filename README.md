@@ -58,7 +58,7 @@ curl nginx.service.consul:8080
 
 
 ### Ansible provisioning mit vagrant
-* The Ansible can also mit vagrant provisioned.
+* The Ansible can also provisioned with vagrant.
 * To do that just uncomment the last part in the Vagrantfile and no need to run ansible seperatly.
 
 
