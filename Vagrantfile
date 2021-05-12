@@ -49,4 +49,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder HOST_PATH, GUEST_PATH
   # Disable default Vagrant folder, use a unique path per project
   config.vm.synced_folder '.', '/home/'+VM_USER+'', disabled: true
+
+  # Just uncomment this part to provision the Environment hier with Vagrant
+  #config.vm.provision "ansible" do |ansible|
+  #  ansible.playbook = "playbook.yml"
+  #  ansible.inventory_path= "./inventory"
+  #end
 end
