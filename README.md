@@ -55,3 +55,10 @@ curl nginx.service.consul:8080
 ### Connect to Nomad webui and consul webui and check the deployment status
 * http://192.168.50.10:8500/ui/dc1/services
 * http://192.168.50.10:4646/ui/jobs
+
+
+### Ansible provisioning mit vagrant
+* The Ansible can also mit vagrant provisioned.
+* To do that just uncomment the last part in the Vagrantfile and no need to run ansible seperatly.
+
+
